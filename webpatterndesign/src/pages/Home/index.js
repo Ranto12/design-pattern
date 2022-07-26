@@ -8,14 +8,20 @@ const Home = () => {
       <div className='create-wrapper'>
         <Button name="Create Blog"/>
       </div>
-      <Gap height={50} />
+      <Gap height={20} />
       <div className='content-wrapper'>
       <BlogItems />
       <BlogItems />
       <BlogItems />
       <BlogItems />
       </div>
-      <p>Pagenation</p>
+      <Gap height={20} />
+      <div className='pagenation'>
+        <Button name="Prev"/>
+        <Gap  width={20}/>
+        <Button name="Next"/>
+      </div>
+      <Gap height={20} />
     </div>
   )
 }

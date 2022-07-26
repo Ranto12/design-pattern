@@ -10,4 +10,11 @@
         flex-wrap: wrap;
         justify-content: space-between;
     }
+    .pagenation{
+        justify-content: center;
+        max-width: 200px;
+        display: flex;
+        max-height: 40px;
+        margin: auto;
+    }
 }
