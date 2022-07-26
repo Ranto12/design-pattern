@@ -14,11 +14,12 @@
     .social-wrapper{
         display: flex;
         .icon-wrapper{
-            // background-color: white;
             padding: 10px;
             border-radius: 40px;
             margin: 0px 10px;
             .icons-medsos{
+                max-width: 30px;
+                max-height: 30px;
                 width: 30px;
                 height: 30px;
                 object-fit: contain;

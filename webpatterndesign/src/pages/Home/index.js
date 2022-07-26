@@ -1,17 +1,20 @@
 import React from 'react'
 import {Button, Gap} from '../../component'
+import { BlogItems } from '../../component/molecules';
 import './Home.scss';
 const Home = () => {
   return (
     <div className='home-page-wrapper'>
-      {/* <Gap height={20}/> */}
       <div className='create-wrapper'>
         <Button name="Create Blog"/>
       </div>
-      <p>Blog content</p>
-      <p>Blog content</p>
-      <p>Blog content</p>
-      <p>Blog content</p>
+      <Gap height={50} />
+      <div className='content-wrapper'>
+      <BlogItems />
+      <BlogItems />
+      <BlogItems />
+      <BlogItems />
+      </div>
       <p>Pagenation</p>
     </div>
   )
