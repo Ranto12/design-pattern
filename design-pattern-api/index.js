@@ -18,4 +18,15 @@ app.use((req, res, next)=>{
 app.use('/v1/Auth', authRoutes)
 app.use('/v1/blog', blogRoutes)
 
+//membuat pesan error
+app.use((err,req, res, next)=>{
+    const status = err.errorStatus || 500;
+    const message = err.message;
+    const data = err.data;
+    res.status(status).json({
+        message: message,
+        data: data
+    })
+})
+
 app.listen(4000);
