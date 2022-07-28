@@ -1,0 +1,58 @@
+Standart API
+
+{root.api}/{version}/{grouping}/{endpoint}
+SAMPLE: 
+http://patterdesign.com/v1/auth/login
+
+Standart Status Response
+
+200 - OK -> call api succes
+201 - created -> post succes
+400 - bad request -> error on client side (bisa input salah dan lain-lain (user))
+401 - unauthorized -> user not authorized to the request
+403 - forbiden -> user not allowed to access
+404 - not found -> request endpoint not found
+500 - internal server error -> error on server side
+502 - bad gateway -> invalid response from antoher request
+
+GROUP : Authentation
+
+[1] - register
+{root.api}/{version}/auth/register
+
+req
+{
+    "name": "ranto",
+    "email": "test@mail.com,
+    "password" : "testing"
+}
+
+res
+{
+    "message" : "register succes",
+    "data" : {
+        "id" : 1,
+        "name" : "Testing",
+        "email" : "testting@email.com",
+        "password" : "123456"
+    } 
+}
+
+err-response: 
+
+400 = input yang anda masukan tidak valid
+
+[2] - login 
+{root.api}/{version}/auth/login
+
+req:
+{
+    ""
+}
+
+
+GRUP : BLOG
+[1] - create blog post
+[2] - get blog post
+[3] - update blog post
+[4] - delete blog post

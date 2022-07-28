@@ -1,0 +1,1 @@
+ini digunakan untuk melakukan pembuatan database dll.

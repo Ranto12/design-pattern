@@ -1,0 +1,1 @@
+ini digunakan  untuk melakukan pembuatan conroller di setiap node js
