@@ -22,6 +22,7 @@ exports.createBlogPost = (req, res, next)=>{
     const title = req.body.title;
     const image = req.file.path;
     const body = req.body.body;
+    console.log(image)
     
     const posting = new Blogpost({
         title: title,

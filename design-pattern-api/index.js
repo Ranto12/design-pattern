@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const multer  = require('multer');
+const path = require('path');
 
 const app = express();
 const authRoutes = require('./src/Routes/Auth');
@@ -14,7 +15,7 @@ const  fileStorage = multer.diskStorage({
     },
     filename:(req, file, cb)=>{
         //mengembalikan nama file yang akan diupload
-        cb(null, new Date().getDate() + '-' + file.originalname);
+        cb(null, new Date().getTime() + '-' + file.originalname);
     }
 })
 
@@ -30,6 +31,7 @@ const fileFilter=(req, file, cb)=>{
 //midelware
 app.use(bodyParser.json()); //type JSOn
 app.use(multer({storage : fileStorage, fileFilter : fileFilter}).single('image'));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use((req, res, next)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
