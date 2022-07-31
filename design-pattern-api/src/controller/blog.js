@@ -1,34 +1,46 @@
 const {validationResult} = require('express-validator')
+const Blogpost = require('../models/blog');
 
 exports.createBlogPost = (req, res, next)=>{
-    console.log(req.body)
-    const title = req.body.title;
-    // const image = req.body.image;
-    const body = req.body.body;
-
+    console.log(req.body);
     const errors = validationResult(req);
-
+    
     if(!errors.isEmpty()){
         const err = new Error('Invalid value');
         err.errorStatus = 400;
         err.data = errors.array();
         throw err;
-
+        
     } 
 
-    const result = {
-        message : "Create new Blog post Successfully",
-        data: {
-            post_id :1,
-            title : title,
-            // image : image,
-            body : body,
-            created_at : new Date(),
-            author : {
-                uid : 1,
-                name : "ranto"
-            }
-        }
+    if(!req.file){
+        const err = new Error('No image');
+        err.errorStatus = 422;
+        throw err;
     }
-    res.status(201).json(result);
+
+    const title = req.body.title;
+    const image = req.file.path;
+    const body = req.body.body;
+    
+    const posting = new Blogpost({
+        title: title,
+        body : body,
+        image : image,
+        author : {
+            uid: 1,
+            name : "ranto"
+        }
+    })
+    //ini akan menyimpan di dalam data base
+    posting.save()
+    .then(result => {
+    res.status(201).json({
+        message: 'Posting created',
+        data : result
+    });  
+    })
+    .catch(err => console.log(err))
+
+                     
 }

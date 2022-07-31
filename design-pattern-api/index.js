@@ -1,12 +1,35 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const multer  = require('multer');
 
 const app = express();
 const authRoutes = require('./src/Routes/Auth');
 const blogRoutes = require('./src/Routes/blog');
 
+//lokasi dimana kita menyimpan lokasi file gambar yang diupload
+const  fileStorage = multer.diskStorage({
+    destination:(req, file, cb)=>{
+        cb(null, 'images');
+    },
+    filename:(req, file, cb)=>{
+        //mengembalikan nama file yang akan diupload
+        cb(null, new Date().getDate() + '-' + file.originalname);
+    }
+})
+
+const fileFilter=(req, file, cb)=>{
+    if( file.mimetype === "image/png" || 
+        file.mimetype === "image/jpg" || 
+        file.mimetype === "image/jpeg"){
+        cb(null, true);
+    }else{
+        cb(null, false);
+    }
+}
+//midelware
 app.use(bodyParser.json()); //type JSOn
+app.use(multer({storage : fileStorage, fileFilter : fileFilter}).single('image'));
 
 app.use((req, res, next)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -30,7 +53,7 @@ app.use((err,req, res, next)=>{
     })
 })
 
-mongoose.connect('mongodb+srv://Ranto21:Sayabutawarna1@cluster0.aetsm7d.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://Ranto21:Sayabutawarna1@cluster0.aetsm7d.mongodb.net/designpattern?retryWrites=true&w=majority')
 .then(()=>{
     app.listen(4000, ()=> console.log("connection succes"))
 })

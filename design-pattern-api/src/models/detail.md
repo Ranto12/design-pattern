@@ -1,1 +1,1 @@
-ini digunakan untuk melakukan pembuatan database dll.
+ini digunakan untuk melakukan pembuatan database dll. stuktur data base
