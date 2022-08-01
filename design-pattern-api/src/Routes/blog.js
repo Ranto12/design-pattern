@@ -15,7 +15,9 @@ router.post('/post',[
     blogControler.createBlogPost)
 
 //get all post : /v1/blog/posts
-router.get('/posts', blogControler.getAllBlogPost);
+// router.get('/posts', blogControler.getAllBlogPost);
+//get bye page perpage
+router.get('/posts', blogControler.getAllBlogPostpagenation);
 
 //get post by id : /v1/blog/posts/:id
 router.get('/post/:postID', blogControler.getBlogPostById);

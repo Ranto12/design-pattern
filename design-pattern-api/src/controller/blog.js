@@ -63,6 +63,36 @@ exports.getAllBlogPost = (req, res, next)=>{
     })
 }
 
+//get post by pagenation
+exports.getAllBlogPostpagenation = (req, res, next)=>{
+    //batas data yang akan ditampilkan
+    const currentPage = req.query.page || 1;
+    const perPage = req.query.perPage || 5;
+    let totalItems;
+
+    Blogpost.find()
+    .countDocuments()
+    .then(count =>{
+        totalItems = count;
+        return Blogpost.find()
+        .skip((currentPage - 1) * perPage)
+        .limit(perPage)
+    })
+    .then(result =>{
+        res.status(200).json({
+            message : 'get bye pegenation',
+            data : result,
+            totalData: totalItems,
+            perPage: perPage,
+            currentPage: currentPage,
+        })
+    })
+    .catch(err =>{
+        next(err);
+    })
+
+}
+
 // get post by id : /v1/blog/posts/:id
 exports.getBlogPostById = (req, res, next)=>{
     //untuk mengambil param yang ada di url
