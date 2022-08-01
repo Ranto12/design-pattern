@@ -19,6 +19,7 @@ const  fileStorage = multer.diskStorage({
     }
 })
 
+//filter format image yang diupload
 const fileFilter=(req, file, cb)=>{
     if( file.mimetype === "image/png" || 
         file.mimetype === "image/jpg" || 
@@ -33,6 +34,8 @@ app.use(bodyParser.json()); //type JSOn
 app.use(multer({storage : fileStorage, fileFilter : fileFilter}).single('image'));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
+
+//cors allow origin
 app.use((req, res, next)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type,  Authorization');
