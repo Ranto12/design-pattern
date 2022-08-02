@@ -2,7 +2,7 @@ import './BlogItems.scss';
 import {Button} from '../../';
 import { useNavigate } from 'react-router';
 const BlogItems = (props) => {
-  const {title, author, body, image,date} = props;
+  const {title, author, body, image, date} = props;
   const navigate = useNavigate();
   return (
     <div className='blog-items'>
