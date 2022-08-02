@@ -1,10 +1,10 @@
 import {useNavigate} from 'react-router-dom';
 import { useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import Axios  from 'axios';
 
 import { BlogItems } from '../../component/molecules';
 import {Button, Gap} from '../../component';
+import { setDataBlog } from '../../config/redux/action';
 import './Home.scss';
 
 const Home = () => {
@@ -13,14 +13,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    Axios.get('http://localhost:4000/v1/blog/posts')
-    .then(res => {
-        const responseAPI = res.data;
-        dispatch({type : "UPDATE_DATA_BLOG", payload: responseAPI.data})
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    dispatch(setDataBlog());
   },[dispatch])
 
   return (
