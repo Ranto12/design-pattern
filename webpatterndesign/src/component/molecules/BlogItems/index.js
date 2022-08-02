@@ -1,16 +1,16 @@
-import {LogoRegister} from '../../../Assets/index';
-import {Button} from '../../';
 import './BlogItems.scss';
+import {Button} from '../../';
 import { useNavigate } from 'react-router';
-const BlogItems = () => {
+const BlogItems = (props) => {
+  const {title, author, body, image,date} = props;
   const navigate = useNavigate();
   return (
     <div className='blog-items'>
-        <img  className='image-tumn' src={LogoRegister} alt="post"/>
+        <img  className='image-tumn' src={image} alt="post"/>
         <div className='content-detail'>
-            <p className='title'>Title Blog</p>
-            <p className='author'>Autohor - date Post</p>
-            <p className='body'> lorem impsum  </p>
+            <p className='title'>{title}</p>
+            <p className='author'>{author} {date} </p>
+            <p className='body'>{body}</p>
             <Button name="view detail" onClick={()=> navigate('/detail-blog')}/>
         </div>
     </div>
