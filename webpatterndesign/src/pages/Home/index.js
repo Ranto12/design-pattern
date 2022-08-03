@@ -1,5 +1,5 @@
 import {useNavigate} from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import { BlogItems } from '../../component/molecules';
@@ -9,13 +9,22 @@ import './Home.scss';
 
 const Home = () => {
   const navigate = useNavigate();
-  const {dataBlog} = useSelector(state => state.homeReducer);
+  const {dataBlog, page} = useSelector(state => state.homeReducer);
+  const [counter, setCounter] = useState(2);
   const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(setDataBlog());
-  },[dispatch])
-
+    dispatch(setDataBlog(counter));
+  },[dispatch, counter])
+  
+  const handleprev=()=>{
+    setCounter(counter <= 1 ? 1 : counter - 1);
+  }
+  const handlenext=()=>{
+    // setCounter(counter+1)
+    setCounter(counter === page.totalPage ? page.totalPage : counter + 1);
+  }
+  console.log(counter)
+  
   return (
     <div className='home-page-wrapper'>
       <div className='create-wrapper'>
@@ -25,20 +34,21 @@ const Home = () => {
       <div className='content-wrapper'>
       {dataBlog.map(item=>{
         return <BlogItems 
-                        key={item._id}
-                        image= {`http://localhost:4000/${item.image}`}
-                        author={item.author && item.author.name} 
-                        title={item.title} 
-                        body={item.body} 
-                        date={item.createdAt}
-        />
+          key={item._id}
+          image= {`http://localhost:4000/${item.image}`}
+          author={item.author && item.author.name} 
+          title={item.title} 
+          body={item.body} 
+          date={item.createdAt}/>
       })}
       </div>
       <Gap height={20} />
       <div className='pagenation'>
-        <Button name="Prev"/>
+        <Button name="Prev" onClick={handleprev}/>
         <Gap  width={20}/>
-        <Button name="Next"/>
+        <p className='infoSumPage'>{page.currentPage}/{page.totalPage}</p>
+        <Gap width={20}/>
+        <Button name="Next" onClick={handlenext}/>
       </div>
       <Gap height={20} />
     </div>
