@@ -1,11 +1,11 @@
 import './Upload.scss'
 import {LogoLogin} from '../../../Assets'
 
-const Upload = () => {
+const Upload = ({img, ...rest}) => {
   return (
     <div className='upload'>
-        <img className='image-privew' src={LogoLogin} alt="privew"/>
-        <input type="file" />
+        {img && <img className='image-privew' src={img} alt="privew"/> }
+        <input type="file" {...rest}/>
     </div>
   )
 }

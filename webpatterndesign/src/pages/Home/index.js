@@ -10,7 +10,7 @@ import './Home.scss';
 const Home = () => {
   const navigate = useNavigate();
   const {dataBlog, page} = useSelector(state => state.homeReducer);
-  const [counter, setCounter] = useState(2);
+  const [counter, setCounter] = useState(1);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setDataBlog(counter));
