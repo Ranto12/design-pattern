@@ -3,18 +3,15 @@ import { useNavigate } from 'react-router';
 import {Input, TextArea, Upload, Button, Gap} from '../../component'
 import './CreateBlog.scss';
 import Axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
+import { setForm, setImagePreview } from '../../config/redux/action';
 
 const CreateBlog = () => {
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
-  const [image, setImage] = useState('');
-  const [imagePrivew, setImagePrivew] = useState(null);
+  const {form, imagePreview} = useSelector(state => state.createBlogReducer);
+  const {title, body, image} = form;
+  const dispatch = useDispatch();
   const navigate = useNavigate()
-
   const handleSubmit = (e) => {
-    // console.log('title: ', title);
-    // console.log('body: ', body);
-    // console.log('image: ', image);
     const data = new FormData();
     data.append('image', image);
     data.append('title', title)
@@ -33,17 +30,18 @@ const CreateBlog = () => {
     })
   }
   const handleImage=(e)=>{
-    setImage(e.target.files[0])
-    setImagePrivew(URL.createObjectURL(e.target.files[0]))
+    dispatch(setForm('image', e.target.files[0]));
+    dispatch(setImagePreview(URL.createObjectURL(e.target.files[0])));
   }
+  console.log(image, title, body)
   return (
     <div className='blog-post'>
       <p className='kembali' onClick={()=> navigate('/')}>kembali</p>
       <Gap height={20} />
       <p className='title'>Create new Blog</p>
-      <Input label="Post Title" value={title} onChange={(e)=> setTitle(e.target.value)} type="text"/>
-      <Upload onChange={handleImage} img={imagePrivew}/>
-      <TextArea label="Post Content" value={body} onChange={(e)=> setBody(e.target.value)} />
+      <Input label="Post Title" value={title} onChange={(e)=> dispatch(setForm('title', e.target.value))} type="text"/>
+      <Upload onChange={handleImage} img={imagePreview}/>
+      <TextArea label="Post Content" value={body} onChange={(e)=> dispatch(setForm('body', e.target.value))} />
       <Gap height={10}/>
       <div className='button-action'>
         <Button  name="save" onClick={handleSubmit}/>

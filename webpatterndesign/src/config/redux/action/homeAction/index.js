@@ -4,7 +4,6 @@ export const setDataBlog= (page) => (dispatch) =>{
         Axios.get(`${URL}/blog/posts?page=${page}&perPage=2`)
         .then(result =>{
             const responseAPI = result.data;
-            // console.log(responseAPI)
             dispatch({
                 type: "UPDATE_DATA_BLOG",
                 payload: responseAPI.data
