@@ -1,5 +1,4 @@
 import './Upload.scss'
-import {LogoLogin} from '../../../Assets'
 
 const Upload = ({img, ...rest}) => {
   return (

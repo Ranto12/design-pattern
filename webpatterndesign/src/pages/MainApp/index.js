@@ -4,7 +4,6 @@ import './MainApp.scss';
 import CreateBlog from '../CreateBlog';
 import DetailBlog from '../DetailBlog';
 import Home from '../Home';
-import React from 'react';
 
 const MainApp = () => {
   return (
@@ -13,8 +12,10 @@ const MainApp = () => {
       <div className='content-wrapper'>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Detail-blog" element={<DetailBlog />} />
-          <Route path="/create-blog" element={<CreateBlog />} />  
+          <Route path={`create-blog`} element={<CreateBlog />} /> 
+          <Route path="create-blog/:id" element={<CreateBlog />} />
+          {/* <Route path={`/create-blog/(exact)?/id`} component={CreateBlog} /> */}
+          <Route path="/Detail-blog/:id" element={<DetailBlog />} />
         </Routes>
       </div>
         <Footer/>
